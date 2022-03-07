@@ -11,8 +11,6 @@ const initServer = async () => {
 
   
 
-  
-
   const response = await fetch('https://api.sportradar.com/soccer-extended/trial/v4/stream/events/subscribe?api_key=uxntnnupmr3228nuxswaa77x&format=json&sport_event_id=sr:sport_event_id:32382675', {method: 'GET'});
   const data = await response.json();
   console.log(data);
