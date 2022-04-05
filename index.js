@@ -21,9 +21,13 @@ const initServer = async () => {
   res =>
     new Promise((resolve, reject) => {
       const dest = fs.createWriteStream("./tmp.txt");
+      const readableStream = fs.createReadStream('lorem-ipsum.txt', 'utf8')
+      
       res.body.pipe(dest);
-      
-      
+      res.body.pipe(readableStream);
+      readableStream.on('data', () => {
+        console.log(chunk);
+      });
       res.body.on("end", () => resolve("it worked"));
       dest.on("error", reject);
 
@@ -43,10 +47,7 @@ const initServer = async () => {
   res.header("Content-Type", "application/text");
   fs.readFile('./tmp.txt', (err, data) => {
       if (err) throw err;
-      console.log(data.toString());
-      let string ="{"+data.toString()+"}";
-      let jsn=JSON.parse(string);
-      console.log(jsn);
+      
       res.status(200).send(data);
   });
 
