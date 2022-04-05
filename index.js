@@ -16,12 +16,15 @@ const initServer = async () => {
   
   
   
-  fetch("https://api.sportradar.com/soccer-extended/trial/v4/stream/events/subscribe?api_key=uxntnnupmr3228nuxswaa77x&amp;format=json&amp;sport_event_id=sr:sport_event_id:31767613")
+  fetch("https://api.sportradar.com/soccer-extended/trial/v4/stream/events/subscribe?api_key=uxntnnupmr3228nuxswaa77x&amp;format=json&amp;sport_event_id=sr:sport_event_id:5840253")
   .then(
   res =>
     new Promise((resolve, reject) => {
       const dest = fs.createWriteStream("./tmp.txt");
       res.body.pipe(dest);
+      res.body.pipe((e)=>{
+        console.log(e);
+      });
       res.body.on("end", () => resolve("it worked"));
       dest.on("error", reject);
     })
