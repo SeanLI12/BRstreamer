@@ -44,6 +44,9 @@ const initServer = async () => {
   fs.readFile('./tmp.txt', (err, data) => {
       if (err) throw err;
       console.log(data.toString());
+      let string ="{"+data.toString()+"}";
+      let jsn=JSON.parse(string);
+      console.log(jsn);
       res.status(200).send(data);
   });
 
