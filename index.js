@@ -24,17 +24,13 @@ const initServer = async () => {
       res.body.pipe(dest);
       
       
-      res.body.on("end", () => resolve("it worked"));
+      res.body.on("end", (e) => ()=>{
+        console.log(e);
+      });
       dest.on("error", reject);
 
 
-      res.body.pipe((e)=>{
-        console.log(e);
-      }).on('close', ()=>{
-        console.log("vvv");
-      }).on('error', ()=>{
-        console.log("cb");
-      })
+      
       
 
 
