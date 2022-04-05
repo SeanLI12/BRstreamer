@@ -23,9 +23,9 @@ const initServer = async () => {
       const dest = fs.createWriteStream("./tmp.txt");
       
       res.body.pipe(dest);
-      dest.pipe((e)=>{
-        console.log(e)
-      });
+      res.body.on("connection",()=>{
+        console.log("test");
+      })
       
       res.body.on("end", () => resolve("it worked"));
 
