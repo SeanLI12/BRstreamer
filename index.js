@@ -43,7 +43,7 @@ const initServer = async () => {
   res.header("Content-Type", "application/text");
   fs.readFile('./tmp.txt', (err, data) => {
       if (err) throw err;
-      console.log(data);
+      console.log(data.toString());
       res.status(200).send(data);
   });
 
