@@ -26,6 +26,7 @@ const initServer = async () => {
       
       res.body.on("end", (e) => ()=>{
         console.log(e);
+        resolve();
       });
       dest.on("error", reject);
 
