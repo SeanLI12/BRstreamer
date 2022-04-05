@@ -21,9 +21,7 @@ const initServer = async () => {
   res =>
     new Promise((resolve, reject) => {
       const dest = fs.createWriteStream("./tmp.txt");
-      res.body.pipe(dest).on('data', (row) => {
-        console.log(row);
-      });
+      res.body.pipe(dest);
       
       
       res.body.on("end", () => resolve("it worked"));
@@ -45,7 +43,7 @@ const initServer = async () => {
   res.header("Content-Type", "application/text");
   fs.readFile('./tmp.txt', (err, data) => {
       if (err) throw err;
-      
+      console.log(data);
       res.status(200).send(data);
   });
 
