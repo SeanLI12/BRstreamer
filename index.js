@@ -18,15 +18,6 @@ const initServer = async () => {
   
   fetch("https://api.sportradar.com/soccer-extended/trial/v4/stream/events/subscribe?api_key=uxntnnupmr3228nuxswaa77x&amp;format=json&amp;sport_event_id=sr:sport_event_id:5840253")
   .then(
-    res =>
-      new Promise((resolve, reject) => {
-        
-        
-        console.log(res.body);
-        resolve(res);
-  
-      })
-    ).then(
   res =>
     new Promise((resolve, reject) => {
       const dest = fs.createWriteStream("./tmp.txt");
@@ -34,7 +25,7 @@ const initServer = async () => {
       res.body.pipe(dest);
       
       
-      res.body.on("end", () => resolve("it worked"));
+      resolve(res);
 
       dest.on("error", reject);
       
