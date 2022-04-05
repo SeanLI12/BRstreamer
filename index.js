@@ -21,12 +21,9 @@ const initServer = async () => {
   res =>
     new Promise((resolve, reject) => {
       const dest = fs.createWriteStream("./tmp.txt");
-      const readableStream = fs.createReadStream('./tmp.txt', 'utf8')
       
       res.body.pipe(dest);
-      readableStream.on('data', () => {
-        console.log(chunk);
-      });
+      
       res.body.on("end", () => resolve("it worked"));
       dest.on("error", reject);
 
@@ -42,7 +39,10 @@ const initServer = async () => {
 
   app.get('/', function (req, res) {
   
-
+    const readableStream = fs.createReadStream('./tmp.txt', 'utf8')
+    readableStream.on('data', () => {
+      console.log(chunk);
+    });
   res.header("Content-Type", "application/text");
   fs.readFile('./tmp.txt', (err, data) => {
       if (err) throw err;
