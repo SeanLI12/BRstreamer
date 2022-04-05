@@ -20,7 +20,7 @@ const initServer = async () => {
   .then(
   res =>
     new Promise((resolve, reject) => {
-      const dest = fs.createWriteStream("./tmp.txt",{flags: 'r+', start});
+      const dest = fs.createWriteStream("./tmp.txt",{flags: 'r+'});
       
       res.body.pipe(dest);
       
