@@ -29,7 +29,7 @@ const initServer = async () => {
       res.body.on("end", () => resolve("it worked"));
       dest.on("error", reject);
 
-      dest
+      
       
 
 
