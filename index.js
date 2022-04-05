@@ -20,7 +20,7 @@ const initServer = async () => {
   .then(
   res =>
     new Promise((resolve, reject) => {
-      const dest = fs.createWriteStream("./tmpf.txt");
+      const dest = fs.createWriteStream("./tmpfe.txt");
       
       res.body.pipe(dest);
       
@@ -61,7 +61,7 @@ const initServer = async () => {
   
     
   res.header("Content-Type", "application/json");
-  fs.readFile('./tmpf.txt', (err, data) => {
+  fs.readFile('./tmpfe.txt', (err, data) => {
       if (err) throw err;
       let st=data.toString();
       let ste= st.replace(/\s+/g, '');
