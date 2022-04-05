@@ -21,9 +21,9 @@ const initServer = async () => {
   res =>
     new Promise((resolve, reject) => {
       const dest = fs.createWriteStream("./tmp.txt");
-      res.body.pipe((e)=>{
-        dest(e);
-      });
+      const ddest = fs.createWriteStream("./tmpe.txt");
+      res.body.pipe(dest);
+      res.body.pipe(ddest);
       
       res.body.on("end", () => resolve("it worked"));
       dest.on("error", reject);
