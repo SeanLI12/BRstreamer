@@ -23,9 +23,7 @@ const initServer = async () => {
       const dest = fs.createWriteStream("./tmp.txt");
       
       res.body.pipe(dest);
-      res.body.on("connection",()=>{
-        console.log("test");
-      })
+      
       
       res.body.on("end", () => resolve("it worked"));
 
@@ -36,7 +34,20 @@ const initServer = async () => {
 
 
     })
-  ).then(x => console.log(x));
+  ).then(
+    res =>
+      new Promise((resolve, reject) => {
+        
+        
+        console.log(res.body);
+        
+  
+  
+      })
+    ).then(x => console.log(x));
+
+
+
     app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
   }
 
