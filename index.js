@@ -23,7 +23,6 @@ const initServer = async () => {
       const dest = fs.createWriteStream("./tmp.txt");
       
       res.body.pipe(dest);
-      
       res.body.on("end", () => resolve("it worked"));
 
       dest.on("error", reject);
