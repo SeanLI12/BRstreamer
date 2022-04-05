@@ -20,20 +20,20 @@ const initServer = async () => {
   .then(
   res =>
     new Promise((resolve, reject) => {
-      const dest = fs.createWriteStream("./tmp.txt");
-      res.body.pipe(dest);
+     
+
       
-      
-      res.body.on("end", (e) => ()=>{
+      res.body.pipe((e)=>{
         console.log(e);
-        resolve();
+      }).on('close', ()=>{
+        console.log("vvv");
+      }).on('error', ()=>{
+        console.log("cb");
+        reject();
+      })
+      res.body.on("end", (e) => ()=>{
+        resolve(e);
       });
-      dest.on("error", reject);
-
-
-      
-      
-
 
     })
   ).then(x => console.log(x));
