@@ -24,7 +24,6 @@ const initServer = async () => {
       const readableStream = fs.createReadStream('./tmp.txt', 'utf8')
       
       res.body.pipe(dest);
-      res.body.pipe(readableStream);
       readableStream.on('data', () => {
         console.log(chunk);
       });
