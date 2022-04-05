@@ -35,21 +35,44 @@ const initServer = async () => {
 
     })
   )
+  fs.readFile('./testdata.txt', (err, data) => {
+      if (err) throw err;
+      let st=data.toString();
+     let ste= st.replace(/\s+/g, '');
+     let eww=ste.replace(/(\r\n|\n|\r)/gm, "");
+     let eee=eww.replace(/\}\}\{/g, "}},{");
+     let ary="["+eee+"]";
 
+     let jsn=JSON.parse(ary);
+     
+      console.log(jsn);
+
+  });
 
 
     app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
   }
-
+  function replaceAll(str, find, replace) {
+      var escapedFind=find.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+      return str.replace(new RegExp(escapedFind, 'g'), replace);
+  }
 
   app.get('/', function (req, res) {
   
     
-  res.header("Content-Type", "application/text");
+  res.header("Content-Type", "application/json");
   fs.readFile('./tmp.txt', (err, data) => {
       if (err) throw err;
-      console.log(data.toString());
-      res.status(200).send(data);
+      let st=data.toString();
+      let ste= st.replace(/\s+/g, '');
+      let eww=ste.replace(/(\r\n|\n|\r)/gm, "");
+      let eee=eww.replace(/\}\}\{/g, "}},{");
+      let ary="["+eee+"]";
+
+      let jsn=JSON.parse(ary);
+      
+        
+      res.status(200).send(jsn);
   });
 
   
