@@ -21,31 +21,24 @@ const initServer = async () => {
   res =>
     new Promise((resolve, reject) => {
       const dest = fs.createWriteStream("./tmp.txt");
-      res.body.pipe(dest);
+      res.body.pipe((e)=>{
+        dest(e);
+      });
       
       res.body.on("end", () => resolve("it worked"));
       dest.on("error", reject);
 
 
-      res.body.pipe(()=>{
-        console.log("test")
-      })
+      
 
 
     })
-)
-.then(x => console.log(x));
-  
-
-  app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
- 
-  
-  
-
-}
+  ).then(x => console.log(x));
+    app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
+  }
 
 
-app.get('/', function (req, res) {
+  app.get('/', function (req, res) {
   
 
   res.header("Content-Type", "application/text");
