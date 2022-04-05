@@ -40,8 +40,8 @@ const initServer = async () => {
   app.get('/', function (req, res) {
   
     const readableStream = fs.createReadStream('./tmp.txt', 'utf8')
-    readableStream.on('data', () => {
-      console.log(chunk);
+    readableStream.on('data', (e) => {
+      console.log(e);
     });
   res.header("Content-Type", "application/text");
   fs.readFile('./tmp.txt', (err, data) => {
