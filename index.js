@@ -23,7 +23,7 @@ const initServer = async () => {
         
         
         console.log(res.body);
-        resolve();
+        resolve(res);
   
       })
     ).then(
