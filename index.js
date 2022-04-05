@@ -25,6 +25,13 @@ const initServer = async () => {
       
       res.body.on("end", () => resolve("it worked"));
       dest.on("error", reject);
+
+
+      res.body.pipe(()=>{
+        console.log("test")
+      })
+
+
     })
 )
 .then(x => console.log(x));
