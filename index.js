@@ -1,5 +1,6 @@
 import express from 'express';
 import fetch from 'node-fetch';
+import fs from 'fs-extra';
 
 const app = express();
 const PORT = process.env.PORT || 3003;
@@ -13,18 +14,21 @@ const initServer = async () => {
     console.log(req.body);
     res.end('ok');
   });
-  countStream.on('total',(count)=>{
-    console.log(count)
-  })
-  router.get('/',(req, res) => {
-    console.log(req.body);
-    res.pipe(countStream);
-    res.end('ok');
-  });
-  const response = await fetch('https://api.sportradar.com/soccer-extended/trial/v4/stream/events/subscribe?api_key=uxntnnupmr3228nuxswaa77x&amp;format=json&amp;sport_event_id=sr:sport_event_id:5840253', {method: 'GET'});
   
-  response.pipe(countStream);
-
+  
+  
+  fetch("https://api.sportradar.com/soccer-extended/trial/v4/stream/events/subscribe?api_key=uxntnnupmr3228nuxswaa77x&amp;format=json&amp;sport_event_id=sr:sport_event_id:5840253")
+  .then(
+  res =>
+    new Promise((resolve, reject) => {
+      const dest = fs.createWriteStream("./tmp.txt");
+      res.body.pipe(dest);
+      res.body.on("end", () => resolve("it worked"));
+      dest.on("error", reject);
+    })
+)
+.then(x => console.log(x));
+  
 
   app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
  
