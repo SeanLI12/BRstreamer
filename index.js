@@ -25,8 +25,11 @@ const initServer = async () => {
       res.body.pipe(dest);
       
       res.body.on("end", () => resolve("it worked"));
-      dest.on("error", reject);
 
+      dest.on("error", reject);
+      dest.on('finish', () => {
+          console.log('Finish:')
+      })
       
       
 
@@ -39,10 +42,7 @@ const initServer = async () => {
 
   app.get('/', function (req, res) {
   
-    const readableStream = fs.createReadStream('./tmp.txt', 'utf8')
-    readableStream.on('data', (e) => {
-      console.log(e);
-    });
+    
   res.header("Content-Type", "application/text");
   fs.readFile('./tmp.txt', (err, data) => {
       if (err) throw err;
