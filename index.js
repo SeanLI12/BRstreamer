@@ -1,5 +1,6 @@
 import express from 'express';
 import fetch from 'node-fetch';
+import fs from 'fs-extra';
 
 const app = express();
 const PORT = process.env.PORT || 3003;
@@ -27,8 +28,7 @@ const initServer = async () => {
     })
 )
 .then(x => console.log(x));
-  response.pipe(count);
-
+  
 
   app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
  
