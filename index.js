@@ -21,7 +21,7 @@ const initServer = async () => {
   res =>
     new Promise((resolve, reject) => {
       const dest = fs.createWriteStream("./tmp.txt");
-      const readableStream = fs.createReadStream('lorem-ipsum.txt', 'utf8')
+      const readableStream = fs.createReadStream('./tmp.txt', 'utf8')
       
       res.body.pipe(dest);
       res.body.pipe(readableStream);
