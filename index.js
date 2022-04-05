@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 3003;
 
 
-app.use('/', express.static(__dirname));
+app.use('/', express.static('./'));
 const initServer = async () => {
 
   app.post('/',(req, res) => {
@@ -20,7 +20,7 @@ const initServer = async () => {
   .then(
   res =>
     new Promise((resolve, reject) => {
-      const dest = fs.createWriteStream(__dirname+"/tmp.txt");
+      const dest = fs.createWriteStream("./tmp.txt");
       res.body.pipe(dest);
       res.body.on("end", () => resolve("it worked"));
       dest.on("error", reject);
@@ -41,7 +41,7 @@ app.get('/', function (req, res) {
   
 
   res.header("Content-Type", "application/text");
-  fs.readFile(__dirname+'/tmp.txt', (err, data) => {
+  fs.readFile('./tmp.txt', (err, data) => {
       if (err) throw err;
       
       res.status(200).send(data);
