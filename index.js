@@ -13,16 +13,20 @@ const initServer = async () => {
     console.log(req.body);
     res.end('ok');
   });
-  function count(count){
-    console.log(count)
-  }
-  router.get('/',(req, res) => {
-    console.log(req.body);
-    
-    res.end('ok');
-  });
-  const response = await fetch('https://api.sportradar.com/soccer-extended/trial/v4/stream/events/subscribe?api_key=uxntnnupmr3228nuxswaa77x&amp;format=json&amp;sport_event_id=sr:sport_event_id:5840253', {method: 'GET'});
   
+  
+  
+  fetch("https://api.sportradar.com/soccer-extended/trial/v4/stream/events/subscribe?api_key=uxntnnupmr3228nuxswaa77x&amp;format=json&amp;sport_event_id=sr:sport_event_id:5840253")
+  .then(
+  res =>
+    new Promise((resolve, reject) => {
+      const dest = fs.createWriteStream("./tmp.txt");
+      res.body.pipe(dest);
+      res.body.on("end", () => resolve("it worked"));
+      dest.on("error", reject);
+    })
+)
+.then(x => console.log(x));
   response.pipe(count);
 
 
