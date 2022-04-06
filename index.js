@@ -16,8 +16,9 @@ const initServer = async () => {
   
   //32933261 k-league -FC seoul vs Gangwon
   //32718383 Concacaf champoin- Pumas vs cruz
+  //32679943 Premier league - Burnley vs Everton
   
-  fetch("https://api.sportradar.com/soccer-extended/trial/v4/stream/events/subscribe?api_key=uxntnnupmr3228nuxswaa77x&amp;format=json&amp;sport_event_id=sr:sport_event_id:32718383")
+  fetch("https://api.sportradar.com/soccer-extended/trial/v4/stream/events/subscribe?api_key=uxntnnupmr3228nuxswaa77x&amp;format=json&amp;sport_event_id=sr:sport_event_id:32679943")
   .then(
   res =>
     new Promise((resolve, reject) => {
