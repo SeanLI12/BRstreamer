@@ -14,9 +14,10 @@ const initServer = async () => {
     res.end('ok');
   });
   
+  //32933261 k-league -FC seoul vs Gangwon
+  //32718383 Concacaf champoin- Pumas vs cruz
   
-  
-  fetch("https://api.sportradar.com/soccer-extended/trial/v4/stream/events/subscribe?api_key=uxntnnupmr3228nuxswaa77x&amp;format=json&amp;sport_event_id=sr:sport_event_id:32933261")
+  fetch("https://api.sportradar.com/soccer-extended/trial/v4/stream/events/subscribe?api_key=uxntnnupmr3228nuxswaa77x&amp;format=json&amp;sport_event_id=sr:sport_event_id:32718383")
   .then(
   res =>
     new Promise((resolve, reject) => {
