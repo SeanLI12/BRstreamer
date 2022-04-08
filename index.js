@@ -5,7 +5,7 @@ import fs from 'fs-extra';
 const app = express();
 const PORT = process.env.PORT || 3003;
 
-let ary=
+let ary=[];
 app.use('/', express.static('./'));
 const initServer = async () => {
 
@@ -18,26 +18,29 @@ const initServer = async () => {
   //32718383 Concacaf champoin- Pumas vs cruz
   //32679943 Premier league - Burnley vs Everton
   
-  //https://api.sportradar.com/soccer-extended/trial/v4/en/schedules/live/timelines.json?api_key=uxntnnupmr3228nuxswaa77x.  32933123
+  //https://api.sportradar.com/soccer-extended/trial/v4/en/schedules/live/timelines.json?api_key=cqw2qftzedx2ch2cdwwgj4p5  32933123
   
   setInterval(function () {
-    fetch("https://api.sportradar.com/soccer-extended/trial/v4/en/schedules/live/timelines.json?api_key=uxntnnupmr3228nuxswaa77x")
+    fetch("https://api.sportradar.com/soccer-extended/trial/v4/en/schedules/live/timelines.json?api_key=cqw2qftzedx2ch2cdwwgj4p5")
+    .then(function(res) {
+      return res.json();
+    })
     .then(
     res =>
       new Promise((resolve, reject) => {
         
-        console.log(res.body)
+        console.log(res)
         
-        for(var i=0;i<res.body.sport_event_timelines.length;i++){
-          if(res.body.sport_event_timelines[i].id==32933123){
-            for(var k=0;k<res.body.sport_event_timelines[i].timeline[k];k++){
+        for(var i=0;i<res.sport_event_timelines.length;i++){
+          if(res.body.sport_event_timelines[i].id==32933051){
+            for(var k=0;k<res.sport_event_timelines[i].timeline[k];k++){
               
               for(var l=0;l<ary.length;l++){
                 
-                if(res.body.sport_event_timelines[i].timeline[k].id==ary[l].id){
+                if(res.sport_event_timelines[i].timeline[k].id==ary[l].id){
                   ary.splice(l, 1);;
                 }
-                ary.push(res.body.sport_event_timelines[i].timeline[k]);
+                ary.push(res.sport_event_timelines[i].timeline[k]);
                 
               }
             }
@@ -46,7 +49,7 @@ const initServer = async () => {
         fs.outputFile('./data.json',JSON.stringify(ary) , (err) => {
             if (err) throw err;
 
-            res.body.on("end", () => resolve("it worked"));
+            resolve("it worked")
         });
 
       })
@@ -74,7 +77,7 @@ const initServer = async () => {
       if (err) throw err;
      
 
-      let jsn=JSON.parse(ary);
+      let jsn=JSON.parse(data);
       
         
       res.status(200).send(jsn);
