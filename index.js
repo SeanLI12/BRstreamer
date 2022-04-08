@@ -5,7 +5,7 @@ import fs from 'fs-extra';
 const app = express();
 const PORT = process.env.PORT || 3003;
 
-
+let ary=
 app.use('/', express.static('./'));
 const initServer = async () => {
 
@@ -18,32 +18,50 @@ const initServer = async () => {
   //32718383 Concacaf champoin- Pumas vs cruz
   //32679943 Premier league - Burnley vs Everton
   
-  fetch("https://api.sportradar.com/soccer-extended/trial/v4/stream/events/subscribe?api_key=uxntnnupmr3228nuxswaa77x&amp;format=json&amp;sport_event_id=sr:sport_event_id:32679943")
-  .then(
-  res =>
-    new Promise((resolve, reject) => {
-      const dest = fs.createWriteStream("./tmpfe.txt");
-      
-      res.body.pipe(dest);
-      
-      
-      res.body.on("end", () => resolve("it worked"));
+  //https://api.sportradar.com/soccer-extended/trial/v4/en/schedules/live/timelines.json?api_key=uxntnnupmr3228nuxswaa77x.  32933123
+  
+  setInterval(function () {
+    fetch("https://api.sportradar.com/soccer-extended/trial/v4/en/schedules/live/timelines.json?api_key=uxntnnupmr3228nuxswaa77x")
+    .then(
+    res =>
+      new Promise((resolve, reject) => {
+        
 
-      dest.on("error", reject);
-      
-      
-      
+        
+        for(var i=0;i<res.body.sport_event_timelines.length;i++){
+          if(res.body.sport_event_timelines[i].id==32933123){
+            for(var k=0;k<res.body.sport_event_timelines[i].timeline[k];k++){
+              
+              for(var l=0;l<ary.length;l++){
+                
+                if(res.body.sport_event_timelines[i].timeline[k].id==ary[l].id){
+                  ary.splice(l, 1);;
+                }
+                ary.push(res.body.sport_event_timelines[i].timeline[k]);
+                
+              }
+            }
+          }
+        }
+        fs.outputFile('./data.json',JSON.stringify(ary) , (err) => {
+            if (err) throw err;
 
+            res.body.on("end", () => resolve("it worked"));
+        });
 
-    })
-  )
-  fs.readFile('./testdata.txt', (err, data) => {
+      })
+    )
+  
+  
+  }, 5000);
+  
+  
+  
+  
+  
+  fs.readFile('./data.json', (err, data) => {
       if (err) throw err;
-      let st=data.toString();
-     let ste= st.replace(/\s+/g, '');
-     let eww=ste.replace(/(\r\n|\n|\r)/gm, "");
-     let eee=eww.replace(/\}\}\{/g, "}},{");
-     let ary="["+eee+"]";
+      
 
      let jsn=JSON.parse(ary);
      
@@ -54,22 +72,15 @@ const initServer = async () => {
 
     app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
   }
-  function replaceAll(str, find, replace) {
-      var escapedFind=find.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
-      return str.replace(new RegExp(escapedFind, 'g'), replace);
-  }
+  
 
   app.get('/', function (req, res) {
   
     
   res.header("Content-Type", "application/json");
-  fs.readFile('./tmpfe.txt', (err, data) => {
+  fs.readFile('./data.json', (err, data) => {
       if (err) throw err;
-      let st=data.toString();
-      let ste= st.replace(/\s+/g, '');
-      let eww=ste.replace(/(\r\n|\n|\r)/gm, "");
-      let eee=eww.replace(/\}\}\{/g, "}},{");
-      let ary="["+eee+"]";
+     
 
       let jsn=JSON.parse(ary);
       
