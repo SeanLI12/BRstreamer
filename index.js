@@ -21,7 +21,7 @@ const initServer = async () => {
   //https://api.sportradar.com/soccer-extended/trial/v4/en/schedules/live/timelines.json?api_key=cqw2qftzedx2ch2cdwwgj4p5  32933123
   
   setInterval(function () {
-    fetch("https://api.sportradar.com/soccer-extended/trial/v4/en/schedules/live/timelines.json?api_key=cqw2qftzedx2ch2cdwwgj4p5")
+    fetch("https://api.sportradar.com/soccer-extended/trial/v4/en/schedules/live/timelines.json?api_key=vpqwepdexzqwxvqsjzpsf3cv")
     .then(function(res) {
       return res.json();
     })
