@@ -26,7 +26,7 @@ const initServer = async () => {
     res =>
       new Promise((resolve, reject) => {
         
-
+        console.log(res.body)
         
         for(var i=0;i<res.body.sport_event_timelines.length;i++){
           if(res.body.sport_event_timelines[i].id==32933123){
