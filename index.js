@@ -32,17 +32,20 @@ const initServer = async () => {
         console.log(res)
         
         for(var i=0;i<res.sport_event_timelines.length;i++){
-          if(res.sport_event_timelines[i].id==32933051){
-            for(var k=0;k<res.sport_event_timelines[i].timeline[k];k++){
-              
-              for(var l=0;l<ary.length;l++){
+          if(res.sport_event_timelines[i].id.includes("30903601")){
+            for(var k=0;k<res.sport_event_timelines[i].timeline.length;k++){
+              if(ary.length>0){
+                for(var l=0;l<ary.length;l++){
                 
-                if(res.sport_event_timelines[i].timeline[k].id==ary[l].id){
-                  ary.splice(l, 1);;
+                  if(res.sport_event_timelines[i].timeline[k].id==ary[l].id){
+                    ary.splice(l, 1);;
+                  }
+                  
+                  
                 }
-                ary.push(res.sport_event_timelines[i].timeline[k]);
                 
               }
+              ary.push(res.sport_event_timelines[i].timeline[k]);
             }
           }
         }
