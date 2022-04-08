@@ -59,15 +59,7 @@ const initServer = async () => {
   
   
   
-  fs.readFile('./data.json', (err, data) => {
-      if (err) throw err;
-      
-
-     let jsn=JSON.parse(ary);
-     
-      console.log(jsn);
-
-  });
+ 
 
 
     app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
