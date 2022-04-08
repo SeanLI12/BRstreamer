@@ -32,7 +32,7 @@ const initServer = async () => {
         console.log(res)
         
         for(var i=0;i<res.sport_event_timelines.length;i++){
-          if(res.body.sport_event_timelines[i].id==32933051){
+          if(res.sport_event_timelines[i].id==32933051){
             for(var k=0;k<res.sport_event_timelines[i].timeline[k];k++){
               
               for(var l=0;l<ary.length;l++){
