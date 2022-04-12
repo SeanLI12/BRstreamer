@@ -19,9 +19,12 @@ const initServer = async () => {
   //32679943 Premier league - Burnley vs Everton
   
   //https://api.sportradar.com/soccer-extended/trial/v4/en/schedules/live/timelines.json?api_key=cqw2qftzedx2ch2cdwwgj4p5  32933123
-  
+  https://api.sportradar.us/soccer-extended/trial/v4/en/schedules/live/timelines_delta.json?api_key=cqw2qftzedx2ch2cdwwgj4p5
+
+
+
   setInterval(function () {
-    fetch("https://api.sportradar.com/soccer-extended/trial/v4/en/schedules/live/timelines.json?api_key=vpqwepdexzqwxvqsjzpsf3cv")
+    fetch("https://api.sportradar.com/soccer-extended/trial/v4/en/schedules/live/timelines.json?api_key=842kfk7682b52zczjmygsfnq")
     .then(function(res) {
       return res.json();
     })
@@ -32,7 +35,7 @@ const initServer = async () => {
         console.log(res)
         
         for(var i=0;i<res.sport_event_timelines.length;i++){
-          if(res.sport_event_timelines[i].id.includes("30903601")){
+          if(res.sport_event_timelines[i].id.includes("28619718")){
             for(var k=0;k<res.sport_event_timelines[i].timeline.length;k++){
               if(ary.length>0){
                 for(var l=0;l<ary.length;l++){
